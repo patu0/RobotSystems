@@ -4,8 +4,10 @@ import time, atexit
 try:
     # from lib import *
     # from lib import __reset_mcu__
-    from lib import *
-    from lib import __reset_mcu__
+    import sys
+    sys.path.append(r'/home/pat/picar-x/lib')
+    from utils import *
+    from utils import __reset_mcu__
     __reset_mcu__ ()
     time.sleep (0.01)
 except ImportError:

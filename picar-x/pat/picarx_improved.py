@@ -2,18 +2,17 @@
 
 import time, atexit
 try:
-    # from lib import *
-    # from lib import __reset_mcu__
     import sys
-    sys.path.append(r'/home/pat/picar-x/lib')
+    sys.path.append(r'/home/pat/Documents/RobotSystems/picar-x/lib')
     from utils import *
     from utils import __reset_mcu__
     __reset_mcu__ ()
     time.sleep (0.01)
+    print("This is the PiCar-X System")
 except ImportError:
     print ("This computer does not appear to be a PiCar -X system (ezblock is not present). Shadowing hardware calls with substitute functions ")
     from sim_ezblock import *
-    print("hi")
+
 
 
 class Picarx(object):

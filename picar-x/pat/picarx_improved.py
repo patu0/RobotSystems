@@ -3,10 +3,20 @@
 import time, atexit
 try:
     import sys
+    print("1")
     sys.path.append(r'/home/pat/Documents/RobotSystems/picar-x/lib')
+    from servo import Servo 
+    from pwm import PWM
+    from pin import Pin 
+    from adc import ADC
+    from filedb import fileDB
+    print("2")
     from utils import *
-    from utils import __reset_mcu__
-    __reset_mcu__ ()
+    print("3")
+    from utils import reset_mcu
+    print("4")   
+    reset_mcu()
+    print("5")
     time.sleep (0.01)
     print("This is the PiCar-X System")
 except ImportError:

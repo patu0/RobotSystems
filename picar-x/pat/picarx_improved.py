@@ -2,8 +2,8 @@
 
 import time, atexit
 try:
-    from ezblock import *
-    from ezblock import __reset_mcu__
+    # from lib import *
+    # from lib import __reset_mcu__
     from lib import *
     from lib import __reset_mcu__
     __reset_mcu__ ()

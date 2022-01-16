@@ -3,20 +3,11 @@
 import time, atexit
 try:
     import sys
-    print("1")
+
     sys.path.append(r'/home/pat/Documents/RobotSystems/picar-x/lib')
-    from servo import Servo 
-    from pwm import PWM
-    from pin import Pin 
-    from adc import ADC
-    from filedb import fileDB
-    print("2")
     from utils import *
-    print("3")
     from utils import reset_mcu
-    print("4")   
     reset_mcu()
-    print("5")
     time.sleep (0.01)
     print("This is the PiCar-X System")
 except ImportError:
@@ -27,7 +18,7 @@ except ImportError:
 
 class Picarx(object):
     PERIOD = 4095
-    PRESCALER = 10
+    PRESCALER = 1 # originally 10 
     TIMEOUT = 0.02
 
     def __init__(self):
@@ -167,8 +158,8 @@ class Picarx(object):
             # if abs_current_angle >= 0:
             if abs_current_angle > 40:
                 abs_current_angle = 40
-            # power_scale = (100 - abs_current_angle) / 100.0 
-            power_scale = 1 # Week-2 2.7.2
+            power_scale = (100 - abs_current_angle) / 100.0 
+            # power_scale = 1 # Week-2 2.7.2
             print("power_scale:",power_scale)
             if (current_angle / abs_current_angle) > 0:
                 self.set_motor_speed(1, -1*speed)
@@ -187,8 +178,8 @@ class Picarx(object):
             # if abs_current_angle >= 0:
             if abs_current_angle > 40:
                 abs_current_angle = 40
-            # power_scale = (100 - abs_current_angle) / 100.0 
-            power_scale = 1 # Week-2 2.7.2
+            power_scale = (100 - abs_current_angle) / 100.0 
+            # power_scale = 1 # Week-2 2.7.2
             print("power_scale:",power_scale)
             if (current_angle / abs_current_angle) > 0:
                 self.set_motor_speed(1, speed)

@@ -230,36 +230,62 @@ class Picarx(object):
 
 if __name__ == "__main__":
     px = Picarx()
-#    px.dir_servo_angle_calibration(50)
-    print("Manuever 1: Move Forward then Move Backwards in Straight Lines")
+    # px.dir_servo_angle_calibration(50)
     calib_ang = 3
-    #px.set_dir_servo_angle(calib_ang)
-    #px.forward(10)
-    #print("moved forward")
-    #time.sleep(1)
-    #px.forward(0)
-    #time.sleep(1)
-    #print("move backwards")
-    #px.backward(10)
-    #time.sleep(1)
-    #px.backward(0)
-    print("Maneuver 2A: Parallel Park Left")
-    px.set_dir_servo_angle(calib_ang-25)
-    time.sleep(0.01)
-    px.backward(2)
-    time.sleep(1)
-    px.set_dir_servo_angle(calib_ang+20)
-    time.sleep(0.01)
-    px.backward(1)
-    time.sleep(1)
-    px.set_dir_servo_angle(3)
-    time.sleep(0.01)
-    px.backward(0)
-    
-    time.sleep(1)
-    px.stop()
 
-    atexit.register(px.stop)
+    while True:
+        maneuver_num = input ("What Maneuver would you like the robot to perform? \n 1: Move Forward and Backward \n 2: Parallel Park to the Left \n 3: Three Point Turn \n 4: Exit Selection")
+
+        if maneuver_num == "1":
+            print(f"You picked {maneuver_num} | Move Forward and Backward")
+            #  print("Manuever 1: Move Forward then Move Backwards in Straight Lines")
+            px.set_dir_servo_angle(calib_ang)
+            px.forward(10)
+            print("moved forward")
+            time.sleep(1)
+            px.forward(0)
+            time.sleep(1)
+            print("move backwards")
+            px.backward(10)
+            time.sleep(1)
+            px.backward(0)
+            time.sleep(1)
+            px.stop()
+            break 
+        elif maneuver_num == "2":
+            print(f"You picked {maneuver_num} | Parallel Park Left")
+            # print("Maneuver 2A: Parallel Park Left")
+            px.set_dir_servo_angle(calib_ang-25)
+            time.sleep(0.01)
+            px.backward(2)
+            time.sleep(1)
+            px.set_dir_servo_angle(calib_ang+20)
+            time.sleep(0.01)
+            px.backward(1)
+            time.sleep(1)
+            px.set_dir_servo_angle(3)
+            time.sleep(0.01)
+            px.backward(0)
+            time.sleep(1)
+            px.stop()
+            break
+        elif maneuver_num == "3":
+            print(f"You picked {maneuver_num} | Three-Point Turn")
+            px.set_dir_servo_angle(calib_ang-40)
+            time.sleep(0.01)
+            px.backward(2)
+            time.sleep(1)
+            px.stop()
+            px.set_dir_servo_angle(calib_ang+40)
+            time.sleep(0.01)
+            px.forward(2)
+            time.sleep(1)
+            px.stop()
+            break
+        else:
+            print(f"You picked {maneuver_num} | Please pick a valid number!!")
+
+    
     
 
     # set_dir_servo_angle(0)

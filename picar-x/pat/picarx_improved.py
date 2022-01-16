@@ -226,11 +226,17 @@ class Picarx(object):
         cm = round(during * 340 / 2 * 100, 2)
         #print(cm)
         return cm
+    
+    def cleanup(self):
+        self.set_motor_speed(1, 0)
+        self.set_motor_speed(2, 0)
+        self.set_dir_servo_angle(0)
+
 
 
 if __name__ == "__main__":
     px = Picarx()
-    # px.dir_servo_angle_calibration(50)
+    px.dir_servo_angle_calibration(3)
     calib_ang = 3
 
     while True:

@@ -230,16 +230,37 @@ class Picarx(object):
 
 if __name__ == "__main__":
     px = Picarx()
-    # px.dir_servo_angle_calibration(50)
-    px.set_dir_servo_angle(30)
-    px.forward(30)
-    px.set_dir_servo_angle(0)
+#    px.dir_servo_angle_calibration(50)
+    print("Manuever 1: Move Forward then Move Backwards in Straight Lines")
+    calib_ang = 3
+    #px.set_dir_servo_angle(calib_ang)
+    #px.forward(10)
+    #print("moved forward")
+    #time.sleep(1)
+    #px.forward(0)
+    #time.sleep(1)
+    #print("move backwards")
+    #px.backward(10)
+    #time.sleep(1)
+    #px.backward(0)
+    print("Maneuver 2A: Parallel Park Left")
+    px.set_dir_servo_angle(calib_ang-25)
+    time.sleep(0.01)
+    px.backward(2)
+    time.sleep(1)
+    px.set_dir_servo_angle(calib_ang+20)
+    time.sleep(0.01)
+    px.backward(1)
+    time.sleep(1)
+    px.set_dir_servo_angle(3)
+    time.sleep(0.01)
+    px.backward(0)
+    
     time.sleep(1)
     px.stop()
-    px.set_dir_servo_angle(30)
 
     atexit.register(px.stop)
-
+    
 
     # set_dir_servo_angle(0)
     # time.sleep(1)

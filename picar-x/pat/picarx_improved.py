@@ -251,7 +251,6 @@ if __name__ == "__main__":
             px.backward(0)
             time.sleep(1)
             px.stop()
-            break 
         elif maneuver_num == "2":
             print(f"You picked {maneuver_num} | Parallel Park Left")
             # print("Maneuver 2A: Parallel Park Left")
@@ -268,7 +267,6 @@ if __name__ == "__main__":
             px.backward(0)
             time.sleep(1)
             px.stop()
-            break
         elif maneuver_num == "3":
             print(f"You picked {maneuver_num} | Three-Point Turn")
             px.set_dir_servo_angle(calib_ang-40)
@@ -281,6 +279,7 @@ if __name__ == "__main__":
             px.forward(2)
             time.sleep(1)
             px.stop()
+        elif maneuver_num == "4":
             break
         else:
             print(f"You picked {maneuver_num} | Please pick a valid number!!")

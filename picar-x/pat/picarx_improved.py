@@ -7,6 +7,11 @@ try:
     sys.path.append(r'/home/pat/Documents/RobotSystems/picar-x/lib')
     from utils import *
     from utils import reset_mcu
+    from servo import Servo 
+    from pwm import PWM
+    from pin import Pin
+    from adc import ADC
+    from filedb import fileDB
     reset_mcu()
     time.sleep (0.01)
     print("This is the PiCar-X System")
@@ -225,6 +230,7 @@ class Picarx(object):
 
 if __name__ == "__main__":
     px = Picarx()
+    px.dir_servo_angle_calibration(50)
     px.forward(50)
     time.sleep(1)
     px.stop()

@@ -1,7 +1,6 @@
 import time
 try:
     import sys
-
     sys.path.append(r'/home/pat/Documents/RobotSystems/picar-x/lib')
     from utils import *
     from utils import reset_mcu
@@ -56,13 +55,11 @@ class Picarx(object):
         self.cali_dir_value = [int(i.strip()) for i in self.cali_dir_value.strip("[]").split(",")]
         self.cali_speed_value = [0, 0]
         self.dir_current_angle = 0
-        #初始化PWM引脚
         for pin in self.motor_speed_pins:
             pin.period(self.PERIOD)
             pin.prescaler(self.PRESCALER)
 
     def set_motor_speed(self,motor,speed):
-        # global cali_speed_value,cali_dir_value
         motor -= 1
         if speed >= 0:
             direction = 1 * self.cali_dir_value[motor]
@@ -80,7 +77,6 @@ class Picarx(object):
             self.motor_speed_pins[motor].pulse_width_percent(speed)
 
     def motor_speed_calibration(self,value):
-        # global cali_speed_value,cali_dir_value
         self.cali_speed_value = value
         if value < 0:
             self.cali_speed_value[0] = 0
@@ -92,7 +88,6 @@ class Picarx(object):
     def motor_direction_calibration(self,motor, value):
         # 0: positive direction
         # 1:negative direction
-        # global cali_dir_value
         motor -= 1
         if value == 1:
             self.cali_dir_value[motor] = -1 * self.cali_dir_value[motor]
@@ -100,14 +95,12 @@ class Picarx(object):
 
 
     def dir_servo_angle_calibration(self,value):
-        # global dir_cal_value
         self.dir_cal_value = value
         print("calibrationdir_cal_value:",self.dir_cal_value)
         self.config_flie.set("picarx_dir_servo", "%s"%value)
         self.dir_servo_pin.angle(value)
 
     def set_dir_servo_angle(self,value):
-        # global dir_cal_value
         self.dir_current_angle = value
         angle_value  = value + self.dir_cal_value
         print("angle_value:",angle_value)
@@ -116,27 +109,23 @@ class Picarx(object):
         self.dir_servo_pin.angle(angle_value)
 
     def camera_servo1_angle_calibration(self,value):
-        # global cam_cal_value_1
         self.cam_cal_value_1 = value
         self.config_flie.set("picarx_cam1_servo", "%s"%value)
         print("cam_cal_value_1:",self.cam_cal_value_1)
         self.camera_servo_pin1.angle(value)
 
     def camera_servo2_angle_calibration(self,value):
-        # global cam_cal_value_2
         self.cam_cal_value_2 = value
         self.config_flie.set("picarx_cam2_servo", "%s"%value)
         print("picarx_cam2_servo:",self.cam_cal_value_2)
         self.camera_servo_pin2.angle(value)
 
     def set_camera_servo1_angle(self,value):
-        # global cam_cal_value_1
         self.camera_servo_pin1.angle(-1*(value + -1*self.cam_cal_value_1))
         # print("self.cam_cal_value_1:",self.cam_cal_value_1)
         print((value + self.cam_cal_value_1))
 
     def set_camera_servo2_angle(self,value):
-        # global cam_cal_value_2
         self.camera_servo_pin2.angle(-1*(value + -1*self.cam_cal_value_2))
         # print("self.cam_cal_value_2:",self.cam_cal_value_2)
         print((value + self.cam_cal_value_2))
@@ -160,7 +149,6 @@ class Picarx(object):
             if abs_current_angle > 40:
                 abs_current_angle = 40
             power_scale = (100 - abs_current_angle) / 100.0 
-            # power_scale = 1 # Week-2 2.7.2
             print("power_scale:",power_scale)
             if (current_angle / abs_current_angle) > 0:
                 self.set_motor_speed(1, -1*speed)
@@ -180,7 +168,6 @@ class Picarx(object):
             if abs_current_angle > 40:
                 abs_current_angle = 40
             power_scale = (100 - abs_current_angle) / 100.0 
-            # power_scale = 1 # Week-2 2.7.2
             print("power_scale:",power_scale)
             if (current_angle / abs_current_angle) > 0:
                 self.set_motor_speed(1, speed)

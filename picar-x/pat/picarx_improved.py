@@ -234,7 +234,7 @@ if __name__ == "__main__":
     calib_ang = 3
 
     while True:
-        maneuver_num = input ("What Maneuver would you like the robot to perform? \n 1: Move Forward and Backward \n 2: Parallel Park to the Left \n 3: Three Point Turn \n 4: Exit Selection \n")
+        maneuver_num = input ("What Maneuver would you like the robot to perform? \n 1: Move Forward and Backward \n 2: Parallel Park to the Left \n 3: Parallel Park to the Right \n 4: Three Point Turn \n 5: Exit Selection \n")
 
         if maneuver_num == "1":
             print(f"You picked {maneuver_num} | Move Forward and Backward")
@@ -269,6 +269,23 @@ if __name__ == "__main__":
             px.stop()
             px.set_dir_servo_angle(calib_ang)
         elif maneuver_num == "3":
+            print(f"You picked {maneuver_num} | Parallel Park Right")
+            # print("Maneuver 2A: Parallel Park Left")
+            px.set_dir_servo_angle(calib_ang+25)
+            time.sleep(0.01)
+            px.backward(2)
+            time.sleep(1)
+            px.set_dir_servo_angle(calib_ang-20)
+            time.sleep(0.01)
+            px.backward(1)
+            time.sleep(1)
+            px.set_dir_servo_angle(3)
+            time.sleep(0.01)
+            px.backward(0)
+            time.sleep(1)
+            px.stop()
+            px.set_dir_servo_angle(calib_ang)
+        elif maneuver_num == "4":
             print(f"You picked {maneuver_num} | Three-Point Turn")
             px.set_dir_servo_angle(calib_ang-40)
             time.sleep(0.01)
@@ -289,7 +306,7 @@ if __name__ == "__main__":
             px.forward(3)
             time.sleep(0.5)
             px.stop()
-        elif maneuver_num == "4":
+        elif maneuver_num == "5":
             break
         else:
             print(f"You picked {maneuver_num} | Please pick a valid number!!")

@@ -233,8 +233,10 @@ if __name__ == "__main__":
     # px.dir_servo_angle_calibration(50)
     px.set_dir_servo_angle(30)
     px.forward(30)
+    px.set_dir_servo_angle(0)
     time.sleep(1)
     px.stop()
+    px.set_dir_servo_angle(30)
 
     atexit.register(px.stop)
 

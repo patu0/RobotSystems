@@ -230,8 +230,9 @@ class Picarx(object):
 
 if __name__ == "__main__":
     px = Picarx()
-    px.dir_servo_angle_calibration(50)
-    px.forward(50)
+    # px.dir_servo_angle_calibration(50)
+    px.set_dir_servo_angle(30)
+    px.forward(30)
     time.sleep(1)
     px.stop()
 

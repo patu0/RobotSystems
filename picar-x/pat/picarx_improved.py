@@ -187,3 +187,17 @@ class Picarx(object):
         self.set_motor_speed(1, 0)
         self.set_motor_speed(2, 0)
         self.set_dir_servo_angle(0)
+
+class Sensor(object):
+    def __init__(self):
+        self.chn_0 = ADC("A0")
+        self.chn_1 = ADC("A1")
+        self.chn_2 = ADC("A2")
+    def sensor_reading(self):      
+        list_of_outputs = [self.chn_0.read(),self.chn_1.read(),self.chn_2.read()]
+        return list_of_outputs
+
+class Interpreter(object):
+    def __init__(self,sensor_list):
+        self.sensor_list = sensor_list
+        

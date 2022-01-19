@@ -5,7 +5,7 @@ import logging
 def calibrate_sensors(snsr):
     print("CALIBRATING")
     sensor_history =[]
-    num_of_calibration_iterations = 5
+    num_of_calibration_iterations = 20
     for i in range(num_of_calibration_iterations):
         sensor_history.append(snsr.sensor_reading())
     sum_sensor = [0,0,0]
@@ -17,6 +17,7 @@ def calibrate_sensors(snsr):
     chn_sensor_value_mean = sum(average_sensor_values)/len(average_sensor_values)
     sensor_value_deltas = [x - chn_sensor_value_mean for x in average_sensor_values]
     print(f"Mean chn sensor value = {chn_sensor_value_mean}")
+    print(f"Sensor Value Deltas= {sensor_value_deltas}")
     return sensor_value_deltas
 
 

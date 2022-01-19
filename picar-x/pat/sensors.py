@@ -7,5 +7,6 @@ if __name__ == "__main__":
     snsr = Sensor()
     while True:
         print(snsr.chn_0.read(),snsr.chn_1.read(),snsr.chn_2.read())
+        time.sleep(1)
 
 

@@ -14,7 +14,8 @@ def calibrate_sensors(snsr):
         sum_sensor[1] += sensor_values[1]
         sum_sensor[2] += sensor_values[2]
     average_sensor_values = [sum / num_of_calibration_iterations for sum in sum_sensor]
-    chn_sensor_value_mean = sum(average_sensor_values)/len(average_sensor_values)
+    average_sensor_values = [int(item) for item in average_sensor_values]
+    chn_sensor_value_mean = int(sum(average_sensor_values)/len(average_sensor_values))
     sensor_value_deltas = [x - chn_sensor_value_mean for x in average_sensor_values]
     print(f"Mean chn sensor value = {chn_sensor_value_mean}")
     print(f"Sensor Value Deltas= {sensor_value_deltas}")
@@ -24,9 +25,22 @@ def calibrate_sensors(snsr):
 if __name__ == "__main__":
     px = Picarx() 
     snsr = Sensor()
-    calibrate_sensors(snsr)
+    deltas = calibrate_sensors(snsr)
+    deltas_copy = deltas
     while True:
-        print(snsr.chn_0.read(),snsr.chn_1.read(),snsr.chn_2.read())
+        print("------------------------------------------")
+        cali_sensor_reading = []
+        current_sensor_reading = snsr.sensor_reading()
+        print("Raw Sensor Reading:",current_sensor_reading)
+        deltas = deltas_copy
+        print(deltas)
+        print(deltas_copy)
+        
+        zip_object = zip(deltas,current_sensor_reading)
+        for deltas, current_sensor_reading in zip_object:
+            cali_sensor_reading.append(current_sensor_reading-deltas)
+        print("Calibrated Sensor Reading:",cali_sensor_reading)
+
         time.sleep(1)
 
 

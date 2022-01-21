@@ -193,11 +193,24 @@ class Sensor(object):
         self.chn_0 = ADC("A0")
         self.chn_1 = ADC("A1")
         self.chn_2 = ADC("A2")
+        self.reference = 225
+
     def sensor_reading(self):      
         list_of_outputs = [self.chn_0.read(),self.chn_1.read(),self.chn_2.read()]
         return list_of_outputs
-
+    def cali_sensor_reading():
+        pass
 class Interpreter(object):
-    def __init__(self,sensor_list):
-        self.sensor_list = sensor_list
-        
+    def __init__(self):
+        pass
+    def line_status(self,sensor_value_list,reference):
+        if sensor_value_list[0] > reference and sensor_value_list[1] > reference and sensor_value_list[2] > reference: 
+            return 'STOP'
+        elif sensor_value_list[1] >= reference: 
+            return 'FORWARD'
+        elif sensor_value_list[0] >= reference: 
+            return 'LEFT'
+        elif sensor_value_list[2] >= reference: 
+            return 'RIGHT'
+        else:
+            return 'Somethings Wrong.... :^)'

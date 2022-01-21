@@ -1,5 +1,5 @@
 import time, atexit
-from picarx_improved import Picarx, Sensor
+from picarx_improved import Picarx, Sensor, Interpreter
 import logging
 
 def calibrate_sensors(snsr):
@@ -25,6 +25,7 @@ def calibrate_sensors(snsr):
 if __name__ == "__main__":
     px = Picarx() 
     snsr = Sensor()
+    intptr = Interpreter()
     deltas = calibrate_sensors(snsr)
     deltas_copy = deltas
     while True:
@@ -34,12 +35,12 @@ if __name__ == "__main__":
         print("Raw Sensor Reading:",current_sensor_reading)
         deltas = deltas_copy
         print(deltas)
-        print(deltas_copy)
         
         zip_object = zip(deltas,current_sensor_reading)
         for deltas, current_sensor_reading in zip_object:
             cali_sensor_reading.append(current_sensor_reading-deltas)
         print("Calibrated Sensor Reading:",cali_sensor_reading)
+        print(intptr.line_status(cali_sensor_reading,snsr.reference))
 
         time.sleep(1)
 

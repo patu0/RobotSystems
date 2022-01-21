@@ -39,12 +39,12 @@ class ADC(I2C):
         return self.read*3.3/4095
         
 
-def test():
-    import time
-    adc = ADC(0)
-    while True:
-        print(adc.read())
-        time.sleep(1)
+# def test():
+#     import time
+#     adc = ADC(0)
+#     while True:
+#         print(adc.read())
+#         time.sleep(1)
 
-if __name__ == '__main__':
-    test()
+# if __name__ == '__main__':
+#     test()

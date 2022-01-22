@@ -216,7 +216,7 @@ class Interpreter(object):
                 return 'LEFT', line_status_value
         elif percent_diffs[0] < percent_diffs[1]: #RIGHT
             line_status_value = -1* percent_diffs[1] * 3.5
-            if line_status_value < -0.20:
+            if line_status_value > -0.20:
                 return 'FORWARD', line_status_value
             else:
                 return 'RIGHT', line_status_value

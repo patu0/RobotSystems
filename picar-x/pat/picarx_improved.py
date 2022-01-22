@@ -205,7 +205,7 @@ class Interpreter(object):
         pass
     def line_status(self,sensor_value_list,reference):
         print(sensor_value_list, reference)
-        if sensor_value_list[0] > reference and sensor_value_list[1] > reference and sensor_value_list[2] > reference: 
+        if sensor_value_list[0] < reference and sensor_value_list[1] < reference and sensor_value_list[2] < reference: 
             return 'STOP'
         elif sensor_value_list[1] >= reference: 
             return 'FORWARD'

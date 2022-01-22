@@ -219,8 +219,8 @@ class Interpreter(object):
         else:
             return 'Somethings Wrong.... :^)'
     def get_percentage_diff(self, sensor_values):
-        percent_diff_0_and_1 = sensor_values[1]/sensor_values[0]
-        percent_diff_1_and_2 = sensor_values[1]/sensor_values[2]
+        percent_diff_0_and_1 = round(sensor_values[1]/sensor_values[0],2)
+        percent_diff_1_and_2 = round(sensor_values[1]/sensor_values[2],2)
         print(percent_diff_0_and_1,percent_diff_1_and_2)
         return percent_diff_0_and_1,percent_diff_1_and_2
 class Controller(object):

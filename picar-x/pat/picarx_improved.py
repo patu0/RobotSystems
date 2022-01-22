@@ -193,7 +193,7 @@ class Sensor(object):
         self.chn_0 = ADC("A0")
         self.chn_1 = ADC("A1")
         self.chn_2 = ADC("A2")
-        self.reference = 180
+        self.reference = 250
 
     def sensor_reading(self):      
         list_of_outputs = [self.chn_0.read(),self.chn_1.read(),self.chn_2.read()]

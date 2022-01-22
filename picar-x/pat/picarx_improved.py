@@ -208,10 +208,12 @@ class Interpreter(object):
         line_status_value = 0
         print(sensor_value_list)
         if percent_diffs[0] > percent_diffs[1]: #LEFT
-            line_status_value = percent_diffs[0] * 4
-            return 'LEFT', line_status_value
+            line_status_value = percent_diffs[0] * 3.5
+            if line_status_value > 
+            else:
+                return 'LEFT', line_status_value
         elif percent_diffs[0] < percent_diffs[1]: #RIGHT
-            line_status_value = -1* percent_diffs[1] * 4
+            line_status_value = -1* percent_diffs[1] * 3.5
             return 'RIGHT', line_status_value
         # if percent_diffs[0] > 0.05 and percent_diffs[1] > 0.05:
         #     return 'STOP'
@@ -227,8 +229,10 @@ class Interpreter(object):
         else:
             return 'Somethings Wrong.... :^)'
     def get_percentage_diff(self, sensor_values):
-        percent_diff_0_and_1 = round(sensor_values[1]/sensor_values[0],2)
-        percent_diff_1_and_2 = round(sensor_values[1]/sensor_values[2],2)
+        # percent_diff_0_and_1 = round(sensor_values[1]/sensor_values[0],2)
+        # percent_diff_1_and_2 = round(sensor_values[1]/sensor_values[2],2)
+        percent_diff_0_and_1 = round(sensor_values[0]/sensor_values[1],2)
+        percent_diff_1_and_2 = round(sensor_values[2]/sensor_values[0],2)
         percent_diff_0_and_1 = round(abs(1- percent_diff_0_and_1),2)
         percent_diff_1_and_2 = round(abs(1-percent_diff_1_and_2),2)
         print(percent_diff_0_and_1,percent_diff_1_and_2)

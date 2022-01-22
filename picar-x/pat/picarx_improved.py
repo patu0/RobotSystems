@@ -221,8 +221,8 @@ class Interpreter(object):
     def get_percentage_diff(self, sensor_values):
         percent_diff_0_and_1 = round(sensor_values[1]/sensor_values[0],2)
         percent_diff_1_and_2 = round(sensor_values[1]/sensor_values[2],2)
-        percent_diff_0_and_1 = abs(1- percent_diff_0_and_1)
-        percent_diff_1_and_2 = abs(1-percent_diff_1_and_2)
+        percent_diff_0_and_1 = round(abs(1- percent_diff_0_and_1),2)
+        percent_diff_1_and_2 = round(abs(1-percent_diff_1_and_2),2)
         print(percent_diff_0_and_1,percent_diff_1_and_2)
         return percent_diff_0_and_1,percent_diff_1_and_2
 class Controller(object):

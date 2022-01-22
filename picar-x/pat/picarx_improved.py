@@ -210,8 +210,8 @@ class Interpreter(object):
         elif sensor_value_list[1] >= reference: 
             return 'FORWARD'
         elif sensor_value_list[0] >= reference: 
-            return 'LEFT'
+            return 'LEFT', 1
         elif sensor_value_list[2] >= reference: 
-            return 'RIGHT'
+            return 'RIGHT' , -1
         else:
             return 'Somethings Wrong.... :^)'

@@ -206,17 +206,17 @@ class Interpreter(object):
     def line_status(self,sensor_value_list):
         percent_diffs = self.get_percentage_diff(sensor_value_list)
         line_status_value = 0
-        if percent_diffs[0] < 0.03 and percent_diffs[1] < 0.03:
+        if percent_diffs[0] < 0.04 and percent_diffs[1] < 0.04:
             return 'NO LINE'
         elif percent_diffs[0] > percent_diffs[1]: #LEFT
             line_status_value = percent_diffs[0] * 3.5
-            if line_status_value < 0.40:
+            if 0 < line_status_value < 0.40:
                 return 'FORWARD', line_status_value
             else:
                 return 'LEFT', line_status_value
         elif percent_diffs[0] < percent_diffs[1]: #RIGHT
             line_status_value = -1* percent_diffs[1] * 3.5
-            if line_status_value > -0.40:
+            if 0 > line_status_value > -0.40:
                 return 'FORWARD', line_status_value
             else:
                 return 'RIGHT', line_status_value

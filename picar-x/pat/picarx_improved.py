@@ -203,19 +203,27 @@ class Sensor(object):
 class Interpreter(object):
     def __init__(self):
         pass
-    def line_status(self,sensor_value_list,reference):
-        pertcentage_diffs = self.get_percentage_diff(sensor_value_list)
-
-
-        print(sensor_value_list, reference)
-        if sensor_value_list[0] < reference and sensor_value_list[1] < reference and sensor_value_list[2] < reference: 
-            return 'STOP'
-        elif sensor_value_list[1] >= reference: 
-            return 'FORWARD'
-        elif sensor_value_list[0] >= reference: 
-            return 'LEFT', 1
-        elif sensor_value_list[2] >= reference: 
-            return 'RIGHT' , -1
+    def line_status(self,sensor_value_list):
+        percent_diffs = self.get_percentage_diff(sensor_value_list)
+        line_status_value = 0
+        print(sensor_value_list)
+        if percent_diffs[0] > percent_diffs[1]: #LEFT
+            line_status_value = percent_diffs[0] * 4
+            return 'LEFT', line_status_value
+        elif percent_diffs[0] < percent_diffs[1]: #RIGHT
+            line_status_value = -1* percent_diffs[1] * 4
+            return 'RIGHT', line_status_value
+        # if percent_diffs[0] > 0.05 and percent_diffs[1] > 0.05:
+        #     return 'STOP'
+        # elif percent_diffs[0] < .1 and percent_diffs[1] <.1:
+        #     return 'FORWARD'
+        # elif percent_diffs[0] >
+        #     return 'LEFT', 1
+        # elif percent_diffs[0] < 0.05 and percent_diffs[1] > 0.15:
+        #     if percent_diffs[1] > 0.19:
+        #         return 
+        #     else:
+        #         return 'RIGHT' , -1
         else:
             return 'Somethings Wrong.... :^)'
     def get_percentage_diff(self, sensor_values):
@@ -225,6 +233,7 @@ class Interpreter(object):
         percent_diff_1_and_2 = round(abs(1-percent_diff_1_and_2),2)
         print(percent_diff_0_and_1,percent_diff_1_and_2)
         return percent_diff_0_and_1,percent_diff_1_and_2
+
 class Controller(object):
     def __init__(self, scaling_factor=100):
         pass

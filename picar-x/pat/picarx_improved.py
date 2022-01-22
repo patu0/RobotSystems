@@ -245,4 +245,15 @@ class Interpreter(object):
 
 class Controller(object):
     def __init__(self, scaling_factor=100):
-        pass
+        self.scaling_factor = scaling_factor
+
+    def control(self,line_status_value):
+        
+        if line_status_value > 0:
+            steering_angle = line_status_value * 0.4 
+            return steering_angle
+        elif line_status_value < 0:
+            steering_angle = -1*line_status_value *4
+            return steering_angle
+        else:
+            return None

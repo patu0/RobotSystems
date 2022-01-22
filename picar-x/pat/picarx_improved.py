@@ -204,6 +204,9 @@ class Interpreter(object):
     def __init__(self):
         pass
     def line_status(self,sensor_value_list,reference):
+        pertcentage_diffs = self.get_percentage_diff(sensor_value_list)
+
+
         print(sensor_value_list, reference)
         if sensor_value_list[0] < reference and sensor_value_list[1] < reference and sensor_value_list[2] < reference: 
             return 'STOP'
@@ -215,3 +218,11 @@ class Interpreter(object):
             return 'RIGHT' , -1
         else:
             return 'Somethings Wrong.... :^)'
+    def get_percentage_diff(self, sensor_values):
+        percent_diff_0_and_1 = sensor_values[1]/sensor_values[0]
+        percent_diff_1_and_2 = sensor_values[1]/sensor_values[2]
+        print(percent_diff_0_and_1,percent_diff_1_and_2)
+        return percent_diff_0_and_1,percent_diff_1_and_2
+class Controller(object):
+    def __init__(self, scaling_factor=100):
+        pass

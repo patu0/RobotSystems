@@ -41,6 +41,7 @@ if __name__ == "__main__":
             cali_sensor_reading.append(current_sensor_reading-deltas)
         print("Calibrated Sensor Reading:",cali_sensor_reading)
         print(intptr.line_status(cali_sensor_reading,snsr.reference))
+        intptr.get_percentage_diff(cali_sensor_reading)
 
         time.sleep(1)
 

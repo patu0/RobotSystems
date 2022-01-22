@@ -209,9 +209,9 @@ class Interpreter(object):
         print(sensor_value_list)
         if percent_diffs[0] > percent_diffs[1]: #LEFT
             line_status_value = percent_diffs[0] * 3.5
-            if line_status_value > 
-            else:
-                return 'LEFT', line_status_value
+            # if line_status_value > 
+            # else:
+            return 'LEFT', line_status_value
         elif percent_diffs[0] < percent_diffs[1]: #RIGHT
             line_status_value = -1* percent_diffs[1] * 3.5
             return 'RIGHT', line_status_value

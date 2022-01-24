@@ -1,5 +1,5 @@
 import time, atexit
-from picarx_improved import Picarx, Sensor, Interpreter
+from picarx_improved import Picarx, Sensor, Interpreter, Controller
 import logging
 
 def calibrate_sensors(snsr):
@@ -26,6 +26,7 @@ if __name__ == "__main__":
     px = Picarx() 
     snsr = Sensor()
     intptr = Interpreter()
+    ctrl = Controller()
     deltas = calibrate_sensors(snsr)
     deltas_copy = deltas
     while True:
@@ -42,7 +43,7 @@ if __name__ == "__main__":
         print("Calibrated Sensor Reading:",cali_sensor_reading)
         print(intptr.line_status(cali_sensor_reading))
         intptr.get_percentage_diff(cali_sensor_reading)
-
+        ctrl.control(intptr.line_status(cali_sensor_reading),px)
         time.sleep(1)
 
 

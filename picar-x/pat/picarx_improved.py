@@ -1,4 +1,7 @@
 import time
+import logging
+
+# from logdecorator import log_on_start, log_on_end, log_on_error
 try:
     import sys
     sys.path.append(r'/home/pat/Documents/RobotSystems/picar-x/lib')
@@ -31,7 +34,7 @@ class Picarx(object):
         self.dir_cal_value = int("0")
         self.cam_cal_value_1 = int("0")
         self.cam_cal_value_2 = int("0")
-        # self.dir_cal_value = int(self.config_flie.get("picarx_dir_servo", default_value=0))
+        self.dir_cal_value = int(self.config_flie.get("picarx_dir_servo", default_value=0))
         # self.cam_cal_value_1 = int(self.config_flie.get("picarx_cam1_servo", default_value=0))
         # self.cam_cal_value_2 = int(self.config_flie.get("picarx_cam2_servo", default_value=0))
         self.dir_servo_pin.angle(self.dir_cal_value)
@@ -207,19 +210,24 @@ class Interpreter(object):
         percent_diffs = self.get_percentage_diff(sensor_value_list)
         line_status_value = 0
         if percent_diffs[0] < 0.04 and percent_diffs[1] < 0.04:
-            return 'NO LINE'
+            # return 'NO LINE'
+            return 69
         elif percent_diffs[0] > percent_diffs[1]: #LEFT
             line_status_value = percent_diffs[0] * 3.5
             if 0 < line_status_value < 0.40:
-                return 'FORWARD', line_status_value
+                # return 'FORWARD', line_status_value
+                return line_status_value
             else:
-                return 'LEFT', line_status_value
+                # return 'LEFT', line_status_value
+                return line_status_value
         elif percent_diffs[0] < percent_diffs[1]: #RIGHT
             line_status_value = -1* percent_diffs[1] * 3.5
             if 0 > line_status_value > -0.40:
-                return 'FORWARD', line_status_value
+                # return 'FORWARD', line_status_value
+                return line_status_value
             else:
-                return 'RIGHT', line_status_value
+                # return 'RIGHT', line_status_value
+                return line_status_value
         # if percent_diffs[0] > 0.05 and percent_diffs[1] > 0.05:
         #     return 'STOP'
         # elif percent_diffs[0] < .1 and percent_diffs[1] <.1:
@@ -232,7 +240,8 @@ class Interpreter(object):
         #     else:
         #         return 'RIGHT' , -1
         else:
-            return 'Somethings Wrong.... :^)', line_status_value
+            # return 'Somethings Wrong.... :^)', line_status_value
+            return line_status_value
     def get_percentage_diff(self, sensor_values):
         # percent_diff_0_and_1 = round(sensor_values[1]/sensor_values[0],2)
         # percent_diff_1_and_2 = round(sensor_values[1]/sensor_values[2],2)
@@ -247,13 +256,15 @@ class Controller(object):
     def __init__(self, scaling_factor=100):
         self.scaling_factor = scaling_factor
 
-    def control(self,line_status_value):
-        
+    def control(self,line_status_value,px_object):
         if line_status_value > 0:
             steering_angle = line_status_value * 0.4 
+            print("steering angle:", steering_angle)
+            px_object.set_dir_servo_angle(steering_angle)
             return steering_angle
         elif line_status_value < 0:
-            steering_angle = -1*line_status_value *4
+            steering_angle = -1 * line_status_value * 0.4
+            px_object.set_dir_servo_angle(steering_angle)
             return steering_angle
         else:
             return None

@@ -271,6 +271,7 @@ class Controller(object):
         elif line_status_value != None and line_status_value < 0:
             steering_angle = -1 * line_status_value * 0.4
             px_object.set_dir_servo_angle(steering_angle)
+            print("steering angle:", steering_angle)
             return steering_angle
         else:
             return None

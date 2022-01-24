@@ -105,8 +105,8 @@ class Picarx(object):
     def set_dir_servo_angle(self,value):
         self.dir_current_angle = value
         angle_value  = value + self.dir_cal_value
-        # print("set_dir_servo_angle_1:",angle_value)
-        # print("set_dir_servo_angle_2:",dir_cal_value)
+        print("set_dir_servo_angle_1:",angle_value)
+        print("set_dir_servo_angle_2:",self.dir_cal_value)
         self.dir_servo_pin.angle(angle_value)
 
     def camera_servo1_angle_calibration(self,value):
@@ -265,14 +265,14 @@ class Controller(object):
         if line_status_value != None and line_status_value > 0:
             # steering_angle = line_status_value * 0.4 
             steering_angle = line_status_value * 40
-            print("TURN RIGHT, steering angle:", steering_angle)
+            print("TURN LEFT, steering angle:", steering_angle)
             px_object.set_dir_servo_angle(steering_angle)
             return steering_angle
         elif line_status_value != None and line_status_value < 0:
             steering_angle = -1 * line_status_value * 40
             # steering_angle = -1 * line_status_value
             px_object.set_dir_servo_angle(steering_angle)
-            print("TURN LEFT, steering angle:", steering_angle)
+            print("TURN RIGHT, steering angle:", steering_angle)
             return steering_angle
         else:
             print("NO TURN")

@@ -264,7 +264,7 @@ class Controller(object):
         print("Line Satus Value within control:", line_status_value)
         if line_status_value != None and line_status_value > 0:
             # steering_angle = line_status_value * 0.4 
-            steering_angle = -1 * line_status_value * 40
+            steering_angle = line_status_value * 40
             print("TURN RIGHT, steering angle:", steering_angle)
             px_object.set_dir_servo_angle(steering_angle)
             return steering_angle

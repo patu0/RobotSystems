@@ -105,8 +105,8 @@ class Picarx(object):
     def set_dir_servo_angle(self,value):
         self.dir_current_angle = value
         angle_value  = value + self.dir_cal_value
-        print("set_dir_servo_angle_1:",angle_value)
-        print("set_dir_servo_angle_2:",dir_cal_value)
+        # print("set_dir_servo_angle_1:",angle_value)
+        # print("set_dir_servo_angle_2:",dir_cal_value)
         self.dir_servo_pin.angle(angle_value)
 
     def camera_servo1_angle_calibration(self,value):

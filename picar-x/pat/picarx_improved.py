@@ -275,5 +275,5 @@ class Controller(object):
             print("TURN LEFT, steering angle:", steering_angle)
             return steering_angle
         else:
-            print("NO TURN", steering_angle)
+            print("NO TURN")
             return None

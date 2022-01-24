@@ -33,7 +33,7 @@ class Picarx(object):
         self.dir_cal_value = int("0")
         self.cam_cal_value_1 = int("0")
         self.cam_cal_value_2 = int("0")
-        # self.dir_cal_value = int(self.config_flie.get("picarx_dir_servo", default_value=0))
+        self.dir_cal_value = int(self.config_flie.get("picarx_dir_servo", default_value=0))
         # self.cam_cal_value_1 = int(self.config_flie.get("picarx_cam1_servo", default_value=0))
         # self.cam_cal_value_2 = int(self.config_flie.get("picarx_cam2_servo", default_value=0))
         self.dir_servo_pin.angle(self.dir_cal_value)
@@ -211,7 +211,7 @@ class Interpreter(object):
         if percent_diffs[0] < 0.04 and percent_diffs[1] < 0.04:
             # return 'NO LINE'
             print('no line')
-            # return 0
+            return None
         elif percent_diffs[0] > percent_diffs[1]: #LEFT
             line_status_value = percent_diffs[0] * 3.5
             if 0 < line_status_value < 0.40:
@@ -262,12 +262,13 @@ class Controller(object):
         self.scaling_factor = scaling_factor
 
     def control(self,line_status_value,px_object):
-        if line_status_value > 0:
+        print("Line Satus Value within control:", line_status_value)
+        if line_status_value != None and line_status_value > 0:
             steering_angle = line_status_value * 0.4 
             print("steering angle:", steering_angle)
             px_object.set_dir_servo_angle(steering_angle)
             return steering_angle
-        elif line_status_value < 0:
+        elif line_status_value != None and line_status_value < 0:
             steering_angle = -1 * line_status_value * 0.4
             px_object.set_dir_servo_angle(steering_angle)
             return steering_angle

@@ -105,9 +105,8 @@ class Picarx(object):
     def set_dir_servo_angle(self,value):
         self.dir_current_angle = value
         angle_value  = value + self.dir_cal_value
-        print("angle_value:",angle_value)
-        # print("set_dir_servo_angle_1:",angle_value)
-        # print("set_dir_servo_angle_2:",dir_cal_value)
+        print("set_dir_servo_angle_1:",angle_value)
+        print("set_dir_servo_angle_2:",dir_cal_value)
         self.dir_servo_pin.angle(angle_value)
 
     def camera_servo1_angle_calibration(self,value):
@@ -210,27 +209,27 @@ class Interpreter(object):
         line_status_value = 0
         if percent_diffs[0] < 0.04 and percent_diffs[1] < 0.04:
             # return 'NO LINE'
-            print('no line')
+            print(f'NONE w Line Status:{line_status_value}')
             return None
         elif percent_diffs[0] > percent_diffs[1]: #LEFT
             line_status_value = percent_diffs[0] * 3.5
             if 0 < line_status_value < 0.40:
                 # return 'FORWARD', line_status_value
-                print('FORWARD')
+                print(f'FORWARD w Line Status:{line_status_value}')
                 return line_status_value
             else:
                 # return 'LEFT', line_status_value
-                print('LEFT')
+                print(f'LEFT w Line Status:{line_status_value}')
                 return line_status_value
         elif percent_diffs[0] < percent_diffs[1]: #RIGHT
             line_status_value = -1* percent_diffs[1] * 3.5
             if 0 > line_status_value > -0.40:
                 # return 'FORWARD', line_status_value
-                print('FORWARD')
+                print(f'FORWARD w Line Status:{line_status_value}')
                 return line_status_value
             else:
                 # return 'RIGHT', line_status_value
-                print('RIGHT')
+                print(f'RIGHT w Line Status:{line_status_value}')
                 return line_status_value
         # if percent_diffs[0] > 0.05 and percent_diffs[1] > 0.05:
         #     return 'STOP'
@@ -245,7 +244,7 @@ class Interpreter(object):
         #         return 'RIGHT' , -1
         else:
             # return 'Somethings Wrong.... :^)', line_status_value
-            print('Somethings wrong')
+            print(f'SOMETHING WRONG w Line Status:{line_status_value}')
             return line_status_value
     def get_percentage_diff(self, sensor_values):
         # percent_diff_0_and_1 = round(sensor_values[1]/sensor_values[0],2)

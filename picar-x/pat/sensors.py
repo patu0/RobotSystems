@@ -48,7 +48,7 @@ if __name__ == "__main__":
         intptr.get_percentage_diff(cali_sensor_reading)
         ctrl.control(intptr.line_status(cali_sensor_reading),px)
         time.sleep(0.01)
-        px.forward(1)
+        px.forward(0.1)
         time.sleep(1)
         px.stop()
         time.sleep(1)

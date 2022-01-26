@@ -54,10 +54,10 @@ if __name__ == "__main__":
             px.forward(0.00001)
             time.sleep(0.1)
             px.stop()
-            time.sleep(1)
+            time.sleep(0.5)
         else:
             print("NO LINE TO FOLLOW")
             px.stop()
-            time.sleep(1)
+            time.sleep(0.5)
 
 

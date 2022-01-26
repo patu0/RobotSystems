@@ -46,11 +46,16 @@ if __name__ == "__main__":
         print("Calibrated Sensor Reading:",cali_sensor_reading)
         print(intptr.line_status(cali_sensor_reading))
         intptr.get_percentage_diff(cali_sensor_reading)
-        ctrl.control(intptr.line_status(cali_sensor_reading),px)
-        time.sleep(0.01)
-        px.forward(0.1)
-        time.sleep(0.1)
-        px.stop()
-        time.sleep(1)
+        steering_angle=ctrl.control(intptr.line_status(cali_sensor_reading),px)
+        if intptr.line_status(cali_sensor_reading) != None:
+            print("FOLLOWING LINE")
+            px.object.set_dir_servo_angle(steering_angle)
+            time.sleep(0.01)
+            px.forward(0.01)
+            time.sleep(0.5)
+            px.stop()
+            time.sleep(1)
+        else:
+            print("NO LINE TO FOLLOW")
 
 

@@ -21,6 +21,9 @@ def calibrate_sensors(snsr):
     print(f"Sensor Value Deltas= {sensor_value_deltas}")
     return sensor_value_deltas
 
+def line_follow():
+    pass
+
 
 if __name__ == "__main__":
     px = Picarx() 
@@ -29,6 +32,7 @@ if __name__ == "__main__":
     ctrl = Controller()
     deltas = calibrate_sensors(snsr)
     deltas_copy = deltas
+    # todo turn this into a function ! 
     while True:
         print("------------------------------------------")
         cali_sensor_reading = []
@@ -36,7 +40,6 @@ if __name__ == "__main__":
         print("Raw Sensor Reading:",current_sensor_reading)
         deltas = deltas_copy
         print(deltas)
-        
         zip_object = zip(deltas,current_sensor_reading)
         for deltas, current_sensor_reading in zip_object:
             cali_sensor_reading.append(current_sensor_reading-deltas)
@@ -44,6 +47,10 @@ if __name__ == "__main__":
         print(intptr.line_status(cali_sensor_reading))
         intptr.get_percentage_diff(cali_sensor_reading)
         ctrl.control(intptr.line_status(cali_sensor_reading),px)
+        time.sleep(0.01)
+        px.forward(1)
+        time.sleep(1)
+        px.stop()
         time.sleep(1)
 
 

@@ -46,9 +46,9 @@ if __name__ == "__main__":
         print("Calibrated Sensor Reading:",cali_sensor_reading)
         print(intptr.line_status(cali_sensor_reading))
         intptr.get_percentage_diff(cali_sensor_reading)
-        steering_angle=ctrl.control(intptr.line_status(cali_sensor_reading),px)
         if intptr.line_status(cali_sensor_reading) != None:
             print("FOLLOWING LINE")
+            steering_angle=ctrl.control(intptr.line_status(cali_sensor_reading), px)
             px.set_dir_servo_angle(steering_angle)
             time.sleep(0.01)
             px.forward(0.00001)

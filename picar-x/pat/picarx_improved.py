@@ -245,7 +245,7 @@ class Interpreter(object):
         else:
             # return 'Somethings Wrong.... :^)', line_status_value
             print(f'SOMETHING WRONG w Line Status:{line_status_value}')
-            return line_status_value
+            return None
     def get_percentage_diff(self, sensor_values):
         # percent_diff_0_and_1 = round(sensor_values[1]/sensor_values[0],2)
         # percent_diff_1_and_2 = round(sensor_values[1]/sensor_values[2],2)

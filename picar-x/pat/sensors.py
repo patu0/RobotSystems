@@ -33,6 +33,11 @@ if __name__ == "__main__":
     deltas = calibrate_sensors(snsr)
     deltas_copy = deltas
     # todo turn this into a function ! 
+
+    px.forward(0.00001)
+    time.sleep(0.5)
+    px.stop()
+
     while True:
         print("------------------------------------------")
         cali_sensor_reading = []

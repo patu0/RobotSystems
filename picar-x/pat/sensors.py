@@ -51,7 +51,7 @@ if __name__ == "__main__":
             print("FOLLOWING LINE")
             px.set_dir_servo_angle(steering_angle)
             time.sleep(0.01)
-            px.forward(0.01)
+            px.forward(0.00001)
             time.sleep(0.5)
             px.stop()
             time.sleep(1)

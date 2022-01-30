@@ -1,7 +1,8 @@
 # RobotSystems
 
-Week 2 Assignment Code Review:
+Week 3 Assignment Code Review:
 
-My files for the Week 2 are in the following directory: RobotSystems/picar-x/pat
-
-Enjoy! :p
+Files to review:
+- RobotSystems/picar-x/pat/sensors.py
+- RobotSystems/picar-x/pat/picarx_improved.py
+- RobotSystems/picar-x/pat/lane_follow.py    (this has the code related to part 3.5)

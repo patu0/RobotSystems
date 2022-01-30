@@ -298,7 +298,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr",use_video_port=T
     # img,img_2,img_3 =  color_detect(img,'red')  # Color detection function
     # img =  color_detect(img,'red')  # Color detection function
     cv2.imshow("video", img)    # OpenCV image show
-    frame_process(img)
+    # frame_process(img)
     # cv2.imshow("mask", img_2)    # OpenCV image show
     # cv2.imshow("morphologyEx_img", img_3)    # OpenCV image show
     rawCapture.truncate(0)   # Release cache

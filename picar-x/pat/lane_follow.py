@@ -262,6 +262,7 @@ def frame_process(frame):
         print("steering_angle_new:", steering_angle)
         # heading_line_image=display_heading_line(frame,steering_angle)
         # cv2.imshow(heading_line_image)
+        return steering_angle
     else:
         pass
 # if __name__ == "__main__":
@@ -294,7 +295,7 @@ camera = PiCamera()
 camera.resolution = (640,480)
 camera.framerate = 24
 rawCapture = PiRGBArray(camera, size=camera.resolution)  
-
+px = Picarx() 
 
 for frame in camera.capture_continuous(rawCapture, format="bgr",use_video_port=True):# use_video_port=True
     print("hi")
@@ -302,7 +303,10 @@ for frame in camera.capture_continuous(rawCapture, format="bgr",use_video_port=T
     # img,img_2,img_3 =  color_detect(img,'red')  # Color detection function
     # img =  color_detect(img,'red')  # Color detection function
     cv2.imshow("video", img)    # OpenCV image show
-    frame_process(img)
+    
+    steering_angle = frame_process(img)
+    if steering_angle != None:
+        px.set_dir_servo_angle(steering_angle)
     # cv2.imshow("mask", img_2)    # OpenCV image show
     # cv2.imshow("morphologyEx_img", img_3)    # OpenCV image show
     rawCapture.truncate(0)   # Release cache

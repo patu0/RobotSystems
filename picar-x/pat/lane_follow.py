@@ -246,20 +246,22 @@ def frame_process(frame):
     # cv2.imshow("lane lines", lane_lines_image)
     # cv2.waitKey(1000)
     # cv2.destroyAllWindows
-    _, _, left_x2, _ = lane_lines[0][0]
-    _, _, right_x2, _ = lane_lines[1][0]
-    mid = int(width / 2)
-    x_offset = (left_x2 + right_x2) / 2 - mid
-    y_offset = int(height / 2)
+    if len(lane_lines) != 0:
+        _, _, left_x2, _ = lane_lines[0][0]
+        _, _, right_x2, _ = lane_lines[1][0]
+        mid = int(width / 2)
+        x_offset = (left_x2 + right_x2) / 2 - mid
+        y_offset = int(height / 2)
 
-    angle_to_mid_radian = math.atan(x_offset / y_offset)  # angle (in radian) to center vertical line
-    angle_to_mid_deg = int(angle_to_mid_radian * 180.0 / math.pi)  # angle (in degrees) to center vertical line
-    steering_angle = angle_to_mid_deg + 90  # this is the steering angle needed by picar front wheel
-    print("steering_angle:",steering_angle)
+        angle_to_mid_radian = math.atan(x_offset / y_offset)  # angle (in radian) to center vertical line
+        angle_to_mid_deg = int(angle_to_mid_radian * 180.0 / math.pi)  # angle (in degrees) to center vertical line
+        steering_angle = angle_to_mid_deg + 90  # this is the steering angle needed by picar front wheel
+        print("steering_angle:",steering_angle)
 
-    heading_line_image=display_heading_line(frame,steering_angle)
-    cv2.imshow(heading_line_image)
-
+        heading_line_image=display_heading_line(frame,steering_angle)
+        cv2.imshow(heading_line_image)
+    else:
+        pass
 # if __name__ == "__main__":
 #     frame = cv2.imread('C:/Users/97pat/Desktop/lanes.png')
 #     lane_lines = detect_lane(frame)

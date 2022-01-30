@@ -18,14 +18,14 @@ def detect_edges(frame):
     # https://towardsdatascience.com/deeppicar-part-4-lane-following-via-opencv-737dd9e47c96
     # filter for blue lane lines
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-    cv2.imshow("hsv", hsv)
-    cv2.waitKey(1000)
+    # cv2.imshow("hsv", hsv)
+    # cv2.waitKey(1000)
     lower_blue = np.array([60, 40, 40])
     upper_blue = np.array([150, 255, 255])
     mask = cv2.inRange(hsv, lower_blue, upper_blue)
-    cv2.imshow("blue mask", mask)
-    cv2.waitKey(1000)
-    cv2.destroyAllWindows
+    # cv2.imshow("blue mask", mask)
+    # cv2.waitKey(1000)
+    # cv2.destroyAllWindows
     # detect edges
     edges = cv2.Canny(mask, 200, 400)
 
@@ -47,9 +47,9 @@ def region_of_interest(edges):
 
     cv2.fillPoly(mask, polygon, 255)
     cropped_edges = cv2.bitwise_and(edges, mask)
-    cv2.imshow("cropped edges", cropped_edges)
-    cv2.waitKey(1000)
-    cv2.destroyAllWindows
+    # cv2.imshow("cropped edges", cropped_edges)
+    # cv2.waitKey(1000)
+    # cv2.destroyAllWindows
     return cropped_edges
 
 def detect_line_segments(cropped_edges):
@@ -238,8 +238,27 @@ def picarx_angle_conversion(steering_angle_old):
         steering_angle = steering_angle_new
     return steering_angle
 
-def frame_process():
-    pass
+def frame_process(frame):
+    # frame = cv2.imread('C:/Users/97pat/Desktop/lanes.png')
+    lane_lines = detect_lane(frame)
+    lane_lines_image = display_lines(frame, lane_lines)
+    height, width, _ = frame.shape
+    # cv2.imshow("lane lines", lane_lines_image)
+    # cv2.waitKey(1000)
+    # cv2.destroyAllWindows
+    _, _, left_x2, _ = lane_lines[0][0]
+    _, _, right_x2, _ = lane_lines[1][0]
+    mid = int(width / 2)
+    x_offset = (left_x2 + right_x2) / 2 - mid
+    y_offset = int(height / 2)
+
+    angle_to_mid_radian = math.atan(x_offset / y_offset)  # angle (in radian) to center vertical line
+    angle_to_mid_deg = int(angle_to_mid_radian * 180.0 / math.pi)  # angle (in degrees) to center vertical line
+    steering_angle = angle_to_mid_deg + 90  # this is the steering angle needed by picar front wheel
+    print("steering_angle:",steering_angle)
+
+    heading_line_image=display_heading_line(frame,steering_angle)
+    cv2.imshow(heading_line_image)
 
 # if __name__ == "__main__":
 #     frame = cv2.imread('C:/Users/97pat/Desktop/lanes.png')
@@ -279,6 +298,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr",use_video_port=T
     # img,img_2,img_3 =  color_detect(img,'red')  # Color detection function
     # img =  color_detect(img,'red')  # Color detection function
     cv2.imshow("video", img)    # OpenCV image show
+    frame_process(img)
     # cv2.imshow("mask", img_2)    # OpenCV image show
     # cv2.imshow("morphologyEx_img", img_3)    # OpenCV image show
     rawCapture.truncate(0)   # Release cache

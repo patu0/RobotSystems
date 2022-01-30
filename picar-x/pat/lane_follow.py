@@ -243,7 +243,7 @@ def frame_process(frame):
     lane_lines = detect_lane(frame)
     lane_lines_image = display_lines(frame, lane_lines)
     height, width, _ = frame.shape
-    # cv2.imshow("lane lines", lane_lines_image)
+    cv2.imshow("lane lines", lane_lines_image)
     # cv2.waitKey(1000)
     # cv2.destroyAllWindows
     # _, _, left_x2, _ = lane_lines[0][0]

@@ -229,13 +229,14 @@ def display_heading_line(frame, steering_angle, line_color=(0, 0, 255), line_wid
     return heading_image
 
 def picarx_angle_conversion(steering_angle_old):
-    steering_angle_new = steering_angle_old - 90
+    steering_angle = steering_angle_old - 90
+
     if steering_angle > 0:
         steering_angle = steering_angle * -1
     elif steering_angle < 0:
         steering_angle = steering_angle 
     else: 
-        steering_angle = steering_angle_new
+        steering_angle = steering_angle
     return steering_angle
 
 def frame_process(frame):

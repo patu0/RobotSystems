@@ -243,7 +243,7 @@ def frame_process(frame):
     lane_lines = detect_lane(frame)
     lane_lines_image = display_lines(frame, lane_lines)
     height, width, _ = frame.shape
-    # cv2.imshow("lane lines", lane_lines_image)
+    cv2.imshow("lane lines", lane_lines_image)
     # cv2.waitKey(1000)
     # cv2.destroyAllWindows
     if len(lane_lines) != 0:
@@ -256,10 +256,11 @@ def frame_process(frame):
         angle_to_mid_radian = math.atan(x_offset / y_offset)  # angle (in radian) to center vertical line
         angle_to_mid_deg = int(angle_to_mid_radian * 180.0 / math.pi)  # angle (in degrees) to center vertical line
         steering_angle = angle_to_mid_deg + 90  # this is the steering angle needed by picar front wheel
-        print("steering_angle:",steering_angle)
-
-        heading_line_image=display_heading_line(frame,steering_angle)
-        cv2.imshow(heading_line_image)
+        print("steering_angle_old:",steering_angle)
+        steering_angle=picarx_angle_conversion(steering_angle)
+        print("steering_angle_new:", steering_angle)
+        # heading_line_image=display_heading_line(frame,steering_angle)
+        # cv2.imshow(heading_line_image)
     else:
         pass
 # if __name__ == "__main__":

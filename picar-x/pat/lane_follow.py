@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 import logging
 import math
+from picarx_improved import Picarx 
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 # frame = cv2.imread('C:/Users/97pat/Desktop/tape.png')

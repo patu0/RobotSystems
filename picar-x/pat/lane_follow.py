@@ -313,7 +313,6 @@ for frame in camera.capture_continuous(rawCapture, format="bgr",use_video_port=T
         px.forward(1)
         time.sleep(0.1)
         px.stop()
-        time.sleep(0.5)
     rawCapture.truncate(0)   # Release cache
    
     k = cv2.waitKey(1) & 0xFF

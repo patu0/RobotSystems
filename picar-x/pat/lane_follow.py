@@ -5,6 +5,7 @@ import math
 from picarx_improved import Picarx 
 from picamera.array import PiRGBArray
 from picamera import PiCamera
+import time
 # frame = cv2.imread('C:/Users/97pat/Desktop/tape.png')
 # # frame = cv2.imread('/home/pat/Pictures/tape_rpi.png')
 # hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
@@ -308,8 +309,11 @@ for frame in camera.capture_continuous(rawCapture, format="bgr",use_video_port=T
     steering_angle = frame_process(img)
     if steering_angle != None:
         px.set_dir_servo_angle(steering_angle)
-    # cv2.imshow("mask", img_2)    # OpenCV image show
-    # cv2.imshow("morphologyEx_img", img_3)    # OpenCV image show
+        time.sleep(0.01)
+        px.forward(0.00001)
+        time.sleep(0.1)
+        px.stop()
+        time.sleep(0.5)
     rawCapture.truncate(0)   # Release cache
    
     k = cv2.waitKey(1) & 0xFF

@@ -233,7 +233,7 @@ def picarx_angle_conversion(steering_angle_old):
     steering_angle = steering_angle_old - 90
 
     if steering_angle > 0:
-        steering_angle = steering_angle * -1
+        steering_angle = steering_angle
     elif steering_angle < 0:
         steering_angle = steering_angle 
     else: 

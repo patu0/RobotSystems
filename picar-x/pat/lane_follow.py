@@ -310,8 +310,8 @@ for frame in camera.capture_continuous(rawCapture, format="bgr",use_video_port=T
     if steering_angle != None:
         px.set_dir_servo_angle(steering_angle)
         time.sleep(0.01)
-        px.forward(0.00001)
-        time.sleep(0.1)
+        px.forward(1)
+        time.sleep(0.5)
         px.stop()
         time.sleep(0.5)
     rawCapture.truncate(0)   # Release cache

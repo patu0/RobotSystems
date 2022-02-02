@@ -12,15 +12,9 @@ def detect_edges(frame):
     # https://towardsdatascience.com/deeppicar-part-4-lane-following-via-opencv-737dd9e47c96
     # filter for blue lane lines
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-    # cv2.imshow("hsv", hsv)
-    # cv2.waitKey(1000)
     lower_blue = np.array([60, 40, 40])
     upper_blue = np.array([150, 255, 255])
     mask = cv2.inRange(hsv, lower_blue, upper_blue)
-    # cv2.imshow("blue mask", mask)
-    # cv2.waitKey(1000)
-    # cv2.destroyAllWindows
-    # detect edges
     edges = cv2.Canny(mask, 200, 400)
 
     return edges
@@ -41,9 +35,6 @@ def region_of_interest(edges):
 
     cv2.fillPoly(mask, polygon, 255)
     cropped_edges = cv2.bitwise_and(edges, mask)
-    # cv2.imshow("cropped edges", cropped_edges)
-    # cv2.waitKey(1000)
-    # cv2.destroyAllWindows
     return cropped_edges
 
 def detect_line_segments(cropped_edges):
@@ -55,10 +46,6 @@ def detect_line_segments(cropped_edges):
     min_threshold = 10  # minimal of votes
     line_segments = cv2.HoughLinesP(cropped_edges, rho, angle, min_threshold, 
                                     np.array([]), minLineLength=3, maxLineGap=4)
-    # cv2.imshow("line segments", line_segments)
-    # cv2.waitKey(1000)
-    # cv2.destroyAllWindows
-    # print(len(line_segments))
     return line_segments
 
 def average_slope_intercept(frame, line_segments):
@@ -145,7 +132,6 @@ def display_lines(frame, lines, line_color=(0, 255, 0), line_width=2):
     line_image = cv2.addWeighted(frame, 0.8, line_image, 1, 1)
     return line_image
 
-
 def display_heading_line(frame, steering_angle, line_color=(0, 0, 255), line_width=5 ):
     # Courtesy of the David Tian Towards_Data_Science
     # https://towardsdatascience.com/deeppicar-part-4-lane-following-via-opencv-737dd9e47c96
@@ -203,31 +189,29 @@ def frame_process(frame):
     else:
         pass
 
-print("START LANE FOLLOW")
-camera = PiCamera()
-camera.resolution = (640,480)
-camera.framerate = 24
-rawCapture = PiRGBArray(camera, size=camera.resolution)  
-px = Picarx() 
+if __name__ == '__main__':
+    print("START LANE FOLLOW")
+    camera = PiCamera()
+    camera.resolution = (640,480)
+    camera.framerate = 24
+    rawCapture = PiRGBArray(camera, size=camera.resolution)  
+    px = Picarx() 
 
-for frame in camera.capture_continuous(rawCapture, format="bgr",use_video_port=True):# use_video_port=True
-    print("hi")
-    img = frame.array
-    # img,img_2,img_3 =  color_detect(img,'red')  # Color detection function
-    # img =  color_detect(img,'red')  # Color detection function
-    cv2.imshow("video", img)    # OpenCV image show
+    for frame in camera.capture_continuous(rawCapture, format="bgr",use_video_port=True):# use_video_port=True
+        img = frame.array
+        cv2.imshow("video", img)    # OpenCV image show
+        
+        steering_angle = frame_process(img)
+        if steering_angle != None:
+            px.set_dir_servo_angle(steering_angle)
+            time.sleep(0.01)
+            px.forward(1)
+            time.sleep(0.1)
+            px.stop()
+        rawCapture.truncate(0)   # Release cache
     
-    steering_angle = frame_process(img)
-    if steering_angle != None:
-        px.set_dir_servo_angle(steering_angle)
-        time.sleep(0.01)
-        px.forward(1)
-        time.sleep(0.1)
-        px.stop()
-    rawCapture.truncate(0)   # Release cache
-   
-    k = cv2.waitKey(1) & 0xFF
-    # 27 is the ESC key, which means that if you press the ESC key to exit
-    if k == 27:
-        camera.close()
-        break
+        k = cv2.waitKey(1) & 0xFF
+        # 27 is the ESC key, which means that if you press the ESC key to exit
+        if k == 27:
+            camera.close()
+            break

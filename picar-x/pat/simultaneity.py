@@ -1,13 +1,15 @@
-from msilib.schema import Class
 import time
-# import sys
-# sys.path.append(r'E:/RobotSystems/RobotSystems/picar-x/lib')
 from picarx_improved import Picarx,Sensor,Interpreter,Controller
 import concurrent.futures
-import cv2
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 from lane_follow import frame_process
+import sys
+# sys.path.append(r'E:\\Code_Projects\\RobotSystems\\Lib\\site-packages')
+import cv2
+# import sys
+# sys.path.append(r'E:/RobotSystems/RobotSystems/picar-x/lib')
+
 
 class Bus():
     def __init__(self, message ):

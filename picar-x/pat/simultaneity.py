@@ -7,9 +7,6 @@ from lane_follow import frame_process
 import sys
 # sys.path.append(r'E:\\Code_Projects\\RobotSystems\\Lib\\site-packages')
 import cv2
-# import sys
-# sys.path.append(r'E:/RobotSystems/RobotSystems/picar-x/lib')
-
 
 class Bus():
     def __init__(self, message ):

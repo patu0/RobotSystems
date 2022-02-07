@@ -199,8 +199,7 @@ class Sensor(object):
     def sensor_reading(self):      
         list_of_outputs = [self.chn_0.read(),self.chn_1.read(),self.chn_2.read()]
         return list_of_outputs
-    def cali_sensor_reading():
-        pass
+
 class Interpreter(object):
     def __init__(self):
         pass

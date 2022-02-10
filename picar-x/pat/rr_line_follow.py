@@ -2,15 +2,21 @@ import rossros as rr
 
 from picarx_improved import Sensor, Controller, Interpreter, Picarx
 
-sensor = Sensor()
-car = Picarx()
-controller
+# Variable Declaration
+snsr = Sensor()
+px = Picarx()
+intrp = Interpreter()
+cont = Controller()
 
-p_sensor = rr.Producer(Sensor.sensor_reading, sensor_bus, 0.1, name='Sensor')
+# Bus Initialization
+bus_sensor = rr.Bus([0,0,0],"GreyScale Sensor")
+bus_line = rr.Bus(0,"Line Position")
 
-cp_interpretor = rr.ConsumerProducer(Interpreter.)
+# RossROS
+p_sensor = rr.Producer(snsr.sensor_reading, bus_sensor, 0.1, name='Sense')
+cp_interpretor = rr.ConsumerProducer(intrp.line_status, bus_sensor, bus_line, 0.1, name="Interpret")
+c_controller = rr.Consumer(cont.control, bus_line, 0.1, name="Control")
 
-c_controller = rr.Consumer()
 
 try:
     rr.runConcurrently([])

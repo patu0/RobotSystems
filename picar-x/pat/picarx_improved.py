@@ -266,13 +266,25 @@ class Controller(object):
             steering_angle = -1 * line_status_value * 40
             print("TURN LEFT, steering angle:", steering_angle)
             # px_object.set_dir_servo_angle(steering_angle)
-            return steering_angle
+            px_object.set_dir_servo_angle(steering_angle)
+            time.sleep(0.01)
+            px_object.forward(0.00001)
+            time.sleep(0.1)
+            px_object.stop()
+            time.sleep(0.5)
+            # return steering_angle
         elif line_status_value != None and line_status_value < 0:
             steering_angle = -1 * line_status_value * 40
             # steering_angle = -1 * line_status_value
             # px_object.set_dir_servo_angle(steering_angle)
             print("TURN RIGHT, steering angle:", steering_angle)
-            return steering_angle
+            px_object.set_dir_servo_angle(steering_angle)
+            time.sleep(0.01)
+            px_object.forward(0.00001)
+            time.sleep(0.1)
+            px_object.stop()
+            time.sleep(0.5)
+            # return steering_angle
         else:
             print("NO TURN")
             return None

@@ -49,17 +49,15 @@ if __name__ == "__main__":
         for deltas, current_sensor_reading in zip_object:
             cali_sensor_reading.append(current_sensor_reading-deltas)
         print("Calibrated Sensor Reading:",cali_sensor_reading)
+
         print(intptr.line_status(cali_sensor_reading))
         intptr.get_percentage_diff(cali_sensor_reading)
         if intptr.line_status(cali_sensor_reading) != None:
             print("FOLLOWING LINE")
-            steering_angle=ctrl.control(intptr.line_status(cali_sensor_reading), px)
-            px.set_dir_servo_angle(steering_angle)
-            time.sleep(0.01)
-            px.forward(0.00001)
-            time.sleep(0.1)
-            px.stop()
-            time.sleep(0.5)
+            # steering_angle=ctrl.control(intptr.line_status(cali_sensor_reading), px)
+            # px.set_dir_servo_angle(steering_angle)
+
+            ctrl.control(intptr.line_status(cali_sensor_reading), px)
         else:
             print("NO LINE TO FOLLOW")
             px.stop()

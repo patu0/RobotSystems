@@ -1,3 +1,4 @@
+from operator import truediv
 import time
 import logging
 # from logdecorator #import log_on_start, log_on_end, log_on_error
@@ -288,3 +289,49 @@ class Controller(object):
         else:
             print("NO TURN")
             return None
+
+class Sensor_Ultrasonic(object):
+    def __init__(self, trig = Pin("D2)"), echo = Pin("D3"), timeout=0.02):
+        self.trig = trig
+        self.echo = echo
+        self.timeout = timeout
+
+    def read(self):
+        # Courtesy of the Picarx ultrasonic.py file
+        self.trig.low()
+        time.sleep(0.01)
+        self.trig.high()
+        time.sleep(0.00001)
+        self.trig.low()
+        pulse_end = 0
+        pulse_start = 0
+        timeout_start = time.time()
+        while self.echo.value()==0:
+            pulse_start = time.time()
+            if pulse_start - timeout_start > self.timeout:
+                return -1
+        while self.echo.value()==1:
+            pulse_end = time.time()
+            if pulse_end - timeout_start > self.timeout:
+                return -1
+        during = pulse_end - pulse_start
+        cm = round(during * 340 / 2 * 100, 2)
+        return cm
+        
+class Interpreter_Ultrasonic(object):
+    def __init__(self, dist_close = 30):
+        self.dist_close = dist_close
+    def process(self, input):
+        if input <= self.dist_close:
+            return True
+        else:
+            return False
+
+class Controller_Ultrasonic(object):
+    def __init__(self):
+        self.px = Picarx
+    def emergency_stop(self, too_close_distance_flag):
+        if too_close_distance_flag == True:
+            self.px.stop()
+            time.sleep(0.5)
+            
